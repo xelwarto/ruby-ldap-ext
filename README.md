@@ -1,4 +1,4 @@
 ruby-ldap-ext
 =============
 
-Extended Ruby net/ldap library
+Extended Ruby net-ldap library
