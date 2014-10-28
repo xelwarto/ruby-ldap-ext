@@ -39,7 +39,7 @@ end
 # Default Configuration Setup
 Ext::LDAP.configure do
   config.host         = nil
-  config.port         = nil
+  config.port         = 389
   config.secure       = nil
   config.bind_dn      = nil
   config.bind_pass    = nil
