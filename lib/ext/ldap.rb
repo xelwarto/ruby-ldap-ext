@@ -41,7 +41,7 @@ module Ext
         raise Ext::LDAP::Error.new('required parameter(uid) is invalid') if opts[:uid].nil?
         
         filter = Net::LDAP::Filter.eq :uid, opts[:uid]
-        search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
+        Ext::LDAP::Handler.instance.search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
       end
       
       ##############
@@ -52,7 +52,7 @@ module Ext
         raise Ext::LDAP::Error.new('required parameter(mail) is invalid') if opts[:mail].nil?
         
         filter = Net::LDAP::Filter.eq :mail, opts[:mail]
-        search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
+        Ext::LDAP::Handler.instance.search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
       end
       
       ##############
@@ -63,7 +63,7 @@ module Ext
         raise Ext::LDAP::Error.new('required parameter(dn) is invalid') if opts[:dn].nil?
         
         filter = Net::LDAP::Filter.eq :objectClass, 'person'
-        search base: opts[:dn], filter: filter, attributes: opts[:attributes], &block
+        Ext::LDAP::Handler.instance.search base: opts[:dn], filter: filter, attributes: opts[:attributes], &block
       end
       
     end
