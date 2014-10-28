@@ -21,6 +21,72 @@ module Ext
       # Start Public Methods
       
       ##############
+      # Method: add
+      def add(opts=nil)
+        @ldap ||= connect
+        raise Ext::LDAP::Error.new('LDAP connection is invalid') if @ldap.nil?
+        
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        
+        raise Ext::LDAP::Error.new('required parameter(dn) is invalid') if opts[:dn].nil?
+        raise Ext::LDAP::Error.new('required parameter(attributes) is invalid') if opts[:attributes].nil?
+                
+        result = @ldap.add dn: opts[:dn], attributes: opts[:attributes]
+              
+        if @ldap.get_operation_result.code > 0
+          result = nil
+        end
+        
+        result ||= false
+      end
+      
+      ##############
+      # Method: rename
+      def rename(opts=nil)
+        @ldap ||= connect
+        raise Ext::LDAP::Error.new('LDAP connection is invalid') if @ldap.nil?
+        
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        
+        raise Ext::LDAP::Error.new('required parameter(dn) is invalid') if opts[:dn].nil?
+        raise Ext::LDAP::Error.new('required parameter(rdn) is invalid') if opts[:rdn].nil?
+                
+        if opts[:superior].nil?
+          result = @ldap.rename olddn: opts[:dn], newrdn: opts[:rdn]
+        else
+          result = @ldap.rename olddn: opts[:dn], newrdn: opts[:rdn], new_superior: opts[:superior]
+        end
+              
+        if @ldap.get_operation_result.code > 0
+          result = nil
+        end
+        
+        result ||= false
+      end
+      
+      ##############
+      # Method: delete
+      def delete(opts=nil)
+        @ldap ||= connect
+        raise Ext::LDAP::Error.new('LDAP connection is invalid') if @ldap.nil?
+        
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        
+        raise Ext::LDAP::Error.new('required parameter(dn) is invalid') if opts[:dn].nil?
+                
+        result = @ldap.delete dn: opts[:dn]
+              
+        if @ldap.get_operation_result.code > 0
+          result = nil
+        end
+        
+        result ||= false
+      end
+      
+      ##############
       # Method: search
       def search(opts=nil)
         @ldap ||= connect
