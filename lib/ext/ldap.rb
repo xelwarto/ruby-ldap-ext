@@ -33,6 +33,8 @@ module Ext
         class_eval(&block)
       end
       
+      # LDAP Helper Methods
+      
       ##############
       # Method: user_from_uid
       def user_from_uid(opts=nil,&block)
