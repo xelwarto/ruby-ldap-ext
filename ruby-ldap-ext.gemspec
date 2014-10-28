@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   
   spec.required_ruby_version  = '>= 1.9.3'
   
-  spec.add_dependency 'net-ldap', '~> 0.8'
+  spec.add_dependency 'net-ldap', '~> 0.9'
 
   files = []
   dirs = %w{lib}
