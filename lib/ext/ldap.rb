@@ -14,6 +14,7 @@
 
 require 'net-ldap'
 require 'singleton'
+require 'timeout'
 
 require 'ext/ldap/version'
 require 'ext/ldap/error'
