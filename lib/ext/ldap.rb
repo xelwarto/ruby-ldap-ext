@@ -32,6 +32,40 @@ module Ext
       def configure(&block)
         class_eval(&block)
       end
+      
+      ##############
+      # Method: user_from_uid
+      def user_from_uid(opts=nil,&block)
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        raise Ext::LDAP::Error.new('required parameter(uid) is invalid') if opts[:uid].nil?
+        
+        filter = Net::LDAP::Filter.eq :uid, opts[:uid]
+        search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
+      end
+      
+      ##############
+      # Method: user_from_mail
+      def user_from_mail(opts=nil,&block)
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        raise Ext::LDAP::Error.new('required parameter(mail) is invalid') if opts[:mail].nil?
+        
+        filter = Net::LDAP::Filter.eq :mail, opts[:mail]
+        search base: opts[:base], filter: filter, attributes: opts[:attributes], &block
+      end
+      
+      ##############
+      # Method: user_from_dn
+      def user_from_dn(opts=nil,&block)
+        raise Ext::LDAP::Error.new('method parameters are invalid') if opts.nil?
+        raise Ext::LDAP::Error.new('method parameter type is incorrect - requires Hash') if !opts.instance_of? Hash
+        raise Ext::LDAP::Error.new('required parameter(dn) is invalid') if opts[:dn].nil?
+        
+        filter = Net::LDAP::Filter.eq :objectClass, 'person'
+        search base: opts[:dn], filter: filter, attributes: opts[:attributes], &block
+      end
+      
     end
 
   end
